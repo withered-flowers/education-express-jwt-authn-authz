@@ -48,12 +48,23 @@ Dalam penerapan authentikasi yang dikombinasikan dengan JWT, setelah seorang use
 kemudian disimpan oleh user dan digunakan kembali untuk pertukaran data selanjutnya.
 
 Step by Step Authentikasi dengan JWT:
+[Login]
 1. User memberikan credential terhadap aplikasi (server)
 1. Server memvalidasi credential yan diberikan tersebut.
 1. Apabila tidak valid, server merespon data tidak valid. Apabila valid, server merespon dengan  
    memberikan kembalian berupa token (JWT) tersebut.
 1. User menyimpan token tersebut untuk kemudian dapat digunakan kembali dalam pertukaran data  
    selanjutnya.
+
+[Authentikasi]
+1. User akan meminta request ke endpoint tertentu dengan memberikan token
+1. Server akan mengecek apakah token tersebut valid
+1. Apabila tidak valid, server akan mengembalikan respon token tidak valid, apabila valid, server
+   akan mengekstrak data
+1. Setelah dapat data user, server akan mengecek kevalidan data user yang diberikan
+1. Apabila data user yang diberikan tidak valid, server akan mengembalikan respon user tidak valid.
+   Apabila valid server akan menambahkan penanda tambahan berupa data user dalam header yang ada.
+   (Dalam express kita bisa memberikan penanda berupa data tambahan pada `request`)
 
 ### Authorization
 Authorisasi adalah suatu proses untuk memberikan seseorang kemampuan untuk mengakses sumber daya  

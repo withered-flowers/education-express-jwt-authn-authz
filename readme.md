@@ -47,7 +47,7 @@ Dalam penerapan authentikasi yang dikombinasikan dengan JWT, setelah seorang use
 **credential** yang benar, maka sistem akan memberikan balasan berupa JWT yang valid untuk  
 kemudian disimpan oleh user dan digunakan kembali untuk pertukaran data selanjutnya.
 
-Step by Step Authentikasi dengan JWT:
+Step by Step Authentikasi dengan JWT:  
 [Login]
 1. User memberikan credential terhadap aplikasi (server)
 1. Server memvalidasi credential yan diberikan tersebut.
@@ -62,8 +62,9 @@ Step by Step Authentikasi dengan JWT:
 1. Apabila tidak valid, server akan mengembalikan respon token tidak valid, apabila valid, server
    akan mengekstrak data
 1. Setelah dapat data user, server akan mengecek kevalidan data user yang diberikan
-1. Apabila data user yang diberikan tidak valid, server akan mengembalikan respon user tidak valid.
-   Apabila valid server akan menambahkan penanda tambahan berupa data user dalam header yang ada.
+1. Apabila data user yang diberikan tidak valid, server akan mengembalikan respon user tidak 
+   valid. Apabila valid server akan menambahkan penanda tambahan berupa data user dalam header  
+   yang ada.
    (Dalam express kita bisa memberikan penanda berupa data tambahan pada `request`)
 
 ### Authorization
@@ -117,7 +118,7 @@ const express = require("express");
 const app = express();
 
 // middleware pada app level yang langsung digunakan
-app.use(express.urlencoded({ urlencoded: false }));
+app.use(express.urlencoded({ extended: false }));
 
 // middleware pada app level yang dibuat sendiri
 app.use((req, res, next) => {

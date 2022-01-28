@@ -16,100 +16,74 @@
 - Mengerti penggunaan JWT dan implementasinya
 
 ## Review JWT
-JWT atau JSON Web Token adalah standar industri dalam transfer data antar entitas dalam bentuk  
-JSON Object yang sangat ramping atau kecil.
+JWT atau JSON Web Token adalah standar industri dalam transfer data antar entitas dalam bentuk JSON Object yang sangat ramping atau kecil.
 
 JWT ini dapat digunakan untuk proses Authentikasi, Authorisasi, dan Pertukaran Data.  
 
 Dalam pembelajaran ini kita akan menggunakan JWT dalam Proses Authentikasi dan Authorisasi.
 
 ## Toughening the Security
-Tidak dapat dipungkiri bahwa keamanan adalah satu aspek yang penting dalam membuat aplikasi.  
-Sesederhana atau sekompleks apapun aplikasi yang dibuat, apabila tidak menerapkan sistem   
-keamanan yang baik, maka tidak akan ada orang yang menggunakan aplikasi yang dibuat.
+Tidak dapat dipungkiri bahwa keamanan adalah satu aspek yang penting dalam membuat aplikasi. 
 
-Salah dua cara dalam menerapkan keamanan dalam aplikasi adalah dengan mengimplementasikan  
-authentikasi dan authorisasi di dalam aplikasi yang dibuat.
+Sesederhana atau sekompleks apapun aplikasi yang dibuat, apabila tidak menerapkan sistem keamanan yang baik, maka tidak akan ada orang yang menggunakan aplikasi yang dibuat.
+
+Salah dua cara dalam menerapkan keamanan dalam aplikasi adalah dengan mengimplementasikan authentikasi dan authorisasi di dalam aplikasi yang dibuat.
 
 Pertanyaannya sekarang adalah apakah Authentikasi dan Authorisasi ini?
 
 ### Authentication
-Authentikasi adalah suatu istilah yang mengacu pada suatu proses untuk membuktikan apakah suatu  
-dokumen atau informasi yang diberikan itu adalah benar, bukan **hoax**.
+Authentikasi adalah suatu istilah yang mengacu pada suatu proses untuk membuktikan apakah suatu dokumen atau informasi yang diberikan itu adalah benar, bukan **hoax**.
 
-Dalam aplikasi, authentikasi ini sering dikaitkan dengan pembuktian identitas dari seorang  
-pengguna dalam aplikasi kita, umumnya dengan memberikan **credential**, yang merupakan informasi  
-umum yang ditukarkan antara pengguna dengan sistem aplikasi. 
+Dalam aplikasi, authentikasi ini sering dikaitkan dengan pembuktian identitas dari seorang pengguna dalam aplikasi kita, umumnya dengan memberikan **credential**, yang merupakan informasi umum yang ditukarkan antara pengguna dengan sistem aplikasi. 
 
 **Credential** ini umumnya berupa *username* dan *password*
 
-Dalam penerapan authentikasi yang dikombinasikan dengan JWT, setelah seorang user memberikan  
-**credential** yang benar, maka sistem akan memberikan balasan berupa JWT yang valid untuk  
-kemudian disimpan oleh user dan digunakan kembali untuk pertukaran data selanjutnya.
+Dalam penerapan authentikasi yang dikombinasikan dengan JWT, setelah seorang user memberikan **credential** yang benar, maka sistem akan memberikan balasan berupa JWT yang valid untuk kemudian disimpan oleh user dan digunakan kembali untuk pertukaran data selanjutnya.
 
 Step by Step Authentikasi dengan JWT:  
 [Login]
 1. User memberikan credential terhadap aplikasi (server)
 1. Server memvalidasi credential yan diberikan tersebut.
-1. Apabila tidak valid, server merespon data tidak valid. Apabila valid, server merespon dengan  
-   memberikan kembalian berupa token (JWT) tersebut.
-1. User menyimpan token tersebut untuk kemudian dapat digunakan kembali dalam pertukaran data  
-   selanjutnya.
+1. Apabila tidak valid, server merespon data tidak valid. Apabila valid, server merespon dengan memberikan kembalian berupa token (JWT) tersebut.
+1. User menyimpan token tersebut untuk kemudian dapat digunakan kembali dalam pertukaran data selanjutnya.
 
 [Authentikasi]
 1. User akan meminta request ke endpoint tertentu dengan memberikan token
 1. Server akan mengecek apakah token tersebut valid
-1. Apabila tidak valid, server akan mengembalikan respon token tidak valid, apabila valid, server
-   akan mengekstrak data
+1. Apabila tidak valid, server akan mengembalikan respon token tidak valid, apabila valid, server akan mengekstrak data
 1. Setelah dapat data user, server akan mengecek kevalidan data user yang diberikan
-1. Apabila data user yang diberikan tidak valid, server akan mengembalikan respon user tidak 
-   valid. Apabila valid server akan menambahkan penanda tambahan berupa data user dalam header  
-   yang ada.
-   (Dalam express kita bisa memberikan penanda berupa data tambahan pada `request`)
+1. Apabila data user yang diberikan tidak valid, server akan mengembalikan respon user tidak valid. Apabila valid server akan menambahkan penanda tambahan berupa data user dalam header yang ada. (Dalam express kita bisa memberikan penanda berupa data tambahan pada `request`)
 
 ### Authorization
-Authorisasi adalah suatu proses untuk memberikan seseorang kemampuan untuk mengakses sumber daya  
-atau data yang ada di dalam aplikasi.
+Authorisasi adalah suatu proses untuk memberikan seseorang kemampuan untuk mengakses sumber daya atau data yang ada di dalam aplikasi.
 
-Analogi sederhananya adalah tentang rumah yang ditempati. Apabila kita adalah pemilik dari   
-rumah tersebut, maka kita bisa mengakses seluruh kamar yang ada, misalnya dapur, ruang tamu,  
-kamar pribadi yang dimiliki. Tapi apabila kita adalah tamu, maka kita hanya bisa mengakses ruang   tamu saja.
+Analogi sederhananya adalah tentang rumah yang ditempati. Apabila kita adalah pemilik dari rumah tersebut, maka kita bisa mengakses seluruh kamar yang ada, misalnya dapur, ruang tamu, kamar pribadi yang dimiliki. Tapi apabila kita adalah tamu, maka kita hanya bisa mengakses ruang tamu saja.
 
-Dalam penerapan authorisasi yang dikombinasikan dengan JWT, setelah seseorang meminta akses dengan  
-mengirimkan token untuk mengakses yang benar, maka sistem akan memberikan balasan berupa data yang  
-diminta oleh user tersebut.
+Dalam penerapan authorisasi yang dikombinasikan dengan JWT, setelah seseorang meminta akses dengan mengirimkan token untuk mengakses yang benar, maka sistem akan memberikan balasan berupa data yang diminta oleh user tersebut.
 
 Step by Step Authorisasi dengan JWT:
-1. User menginginkan untuk mengakses sesuatu kepada server, sambil memberikan token yang sudah  
-   dibuat pada proses authentikasi sebelumnya.
+1. User menginginkan untuk mengakses sesuatu kepada server, sambil memberikan token yang sudah dibuat pada proses authentikasi sebelumnya.
 1. Sistem akan mengecek apakah token yang diberikan valid.
-1. Apabila token tidak valid, server merespon token tidak valid. Apabila valid, server akan  
-   mengecek apakah user yang ingin mengakses punya hak yang cukup.
-1. Apabila hak dari user tidak cukup, server merespon user tidak punya hak. Apabila valid, server  
-   akan meneruskan untuk memberikan data yang dibutuhkan.
+1. Apabila token tidak valid, server merespon token tidak valid. Apabila valid, server akan mengecek apakah user yang ingin mengakses punya hak yang cukup.
+1. Apabila hak dari user tidak cukup, server merespon user tidak punya hak. Apabila valid, server akan meneruskan untuk memberikan data yang dibutuhkan.
 
-Sebelum masuk ke dalam demo authorisasi dan authentikasi dalam nodejs dengan `Express`, ada  
-baiknya kita belajar mengenai Middleware dalam Express terlebih dahulu.
+Sebelum masuk ke dalam demo authorisasi dan authentikasi dalam nodejs dengan `Express`, ada baiknya kita belajar mengenai Middleware dalam Express terlebih dahulu.
 
 Mengapa demikian?
 
-Karena pada implementasinya dalam Express, proses authentikasi dan authorisasi ini akan dibuat   
-dalam bentuk express middleware.
+Karena pada implementasinya dalam Express, proses authentikasi dan authorisasi ini akan dibuat dalam bentuk express middleware.
 
 ## Express Middleware
 Middle = Tengah, Ware = Sesuatu. TL;DR Sesuatu yang diselipkan di tengah-tengah.
 
-Middleware pada Express adalah sebuah **Fungsi** yang dapat diselipkan untuk dapat mengakses dan  
-memanipulasi objek `request (req)` dan `response (res)`.
+Middleware pada Express adalah sebuah **Fungsi** yang dapat diselipkan untuk dapat mengakses dan memanipulasi objek `request (req)` dan `response (res)`.
 
-Dalam express ini sendiri ada beberapa macam cara untuk menyelipkan middleware, namun yang akan  
-difokuskan dalam pembelajaran ini adalah yang berupa: 
+Dalam express ini sendiri ada beberapa macam cara untuk menyelipkan middleware, namun yang akan difokuskan dalam pembelajaran ini adalah yang berupa: 
 - Application / Router level Middleware
 - Endpoint level Middleware
 
 ### Application / Router level Middleware
-sesuai namanya, middleware ini ditaruh di `application (app)` ataupun di `Router (router)` agar  
-dapat diakses oleh seluruh routing / endpoint yang ada di app / router tersebut.
+sesuai namanya, middleware ini ditaruh di `application (app)` ataupun di `Router (router)` agar dapat diakses oleh seluruh routing / endpoint yang ada di app / router tersebut.
 
 Contoh Application / Router level Middleware:
 ```javascript
@@ -133,8 +107,7 @@ app.use((req, res, next) => {
 ```
 
 ### Endpoint level Middleware
-(SELF TERM) sesuai juga dengan namanya, middleware ini ditaruh di routing / endpoint agar dapat  
-diakses oleh routing / endpoint yang diselipkan saja. (spesifik)
+(SELF TERM) sesuai juga dengan namanya, middleware ini ditaruh di routing / endpoint agar dapat diakses oleh routing / endpoint yang diselipkan saja. (spesifik)
 
 Bisa diterapkan di App / Router.
 
@@ -168,8 +141,7 @@ app.get(
 ...
 ```
 
-Perhatikan pada contoh di atas, kita menyimpan JWT_SECRET yang merupakan kode rahasia yang  
-digunakan oleh JWT secara *hard code*. 
+Perhatikan pada contoh di atas, kita menyimpan JWT_SECRET yang merupakan kode rahasia yang digunakan oleh JWT secara *hard code*. 
 
 Hal ini tentunya sangat berbahaya bukan?
 
@@ -178,22 +150,19 @@ Bagaimana cara kita membuat ini menjadi lebih aman dalam pengembangan aplikasi?
 Untuk menjawab ini, kita harus mengetahui apa itu *Environment Variables* terlebih dahulu
 
 ## Environment Variables
-Environment Variable, selanjutnya disebut dengan *env*, adalah variabel yang nilainya di-set  
-di luar dari aplikasi, umumnya di-set melalui fungsionalitas dari sistem operasi.  
+Environment Variable, selanjutnya disebut dengan *env*, adalah variabel yang nilainya di-set di luar dari aplikasi, umumnya di-set melalui fungsionalitas dari sistem operasi.
+
 (Jadi set valuenya di level OS, bukan di level aplikasi)
 
 Sifatnya berupa `key-value pair` dan bisa sebanyak apapun.
 
-Nah, supaya bisa menyimpan suatu nilai yang aman dan tersembunyi ini, dibutuhkan suatu file yang  
-bisa menyimpannya, umumnya diberi nama `.env (dotenv)`. 
+Nah, supaya bisa menyimpan suatu nilai yang aman dan tersembunyi ini, dibutuhkan suatu file yang bisa menyimpannya, umumnya diberi nama `.env (dotenv)`. 
 
-Pada file inilah kita akan menyembunyikan nilai nilai yang dibutuhkan dan dapat diakses oleh  
-aplikasi tanpa butuh disebarluaskan. 
+Pada file inilah kita akan menyembunyikan nilai nilai yang dibutuhkan dan dapat diakses oleh aplikasi tanpa butuh disebarluaskan. 
 
 Contoh-nya adalah secret yang ada di JWT ini.
 
-dan pada nodejs ini sendiri, supaya bisa membaca file dotenv ini, dibutuhkan suatu package   
-tambahan bernama `dotenv`
+dan pada nodejs ini sendiri, supaya bisa membaca file dotenv ini, dibutuhkan suatu package tambahan bernama `dotenv`
 
 misal:
 ```sh
@@ -210,6 +179,16 @@ const secret = process.env.JWT_SECRET;
 
 ...
 ```
+
+Umumnya file `.env` ini TIDAK boleh diekspose ke dalam source code (tidak boleh dipush ke dalam github), ataupun bila diekspose ke dalam source code, umumnya TIDAK memiliki value sama sekali, hanya memiliki nama variabelnya saja.
+
+Tapi sebaiknya, kita menggunakan satu file tambahan lagi (mis: `.env.example`), yang isinya SAMA dengan `.env`, tapi tidak memiliki value sama sekali, dan kita dapat meng-*ignore* file `.env` untuk tidak di-push ke repository kita via `.gitignore`.
+
+TL;DR:
+- Buat file `.env` dan `.env.example`
+- `.gitignore`-kan file `.env`
+- `.env` digunakan pada development kita, berisi nama variabel dan value
+- `.env.example` dicommit ke dalam repo, berisi nama variabel saja tanpa value
 
 ## Let's Demo
 

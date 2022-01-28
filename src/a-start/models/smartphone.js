@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Smartphone.init(
     {
+      // Belum divalidasi di sini yah!
       name: DataTypes.STRING,
       price: DataTypes.INTEGER,
       qty: DataTypes.INTEGER,

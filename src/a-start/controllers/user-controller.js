@@ -1,5 +1,6 @@
 const { User } = require("../models/index.js");
 const { compareHashWithPassword } = require("../helpers/bcrypt.js");
+const { convertPayloadToToken } = require("../helpers/jwt.js");
 
 class UserController {
   static async postRegisterUserHandler(req, res) {
@@ -49,9 +50,20 @@ class UserController {
         });
       }
 
+      // kita ingin mengembalikan accessToken ke client
+      // jadi kita harus membuat payloadnya terlebih dahulu
+      // kemudian membuat payload jadi token
+      const payload = {
+        // isikan payload dengan data seperlunya saja
+        // jangan berisi data yang terlalu sensitif (bila memungkinkan)
+        id: user.id,
+      };
+
+      const accessToken = convertPayloadToToken(payload);
+
       res.status(200).json({
-        statusCode: 200,
-        data: user,
+        // berikan ke client
+        access_token: accessToken,
       });
     } catch (err) {
       res.status(500).json({

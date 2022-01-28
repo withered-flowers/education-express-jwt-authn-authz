@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
+      // Belum divalidasi di sini yah!
       username: DataTypes.STRING,
       password: DataTypes.STRING,
     },

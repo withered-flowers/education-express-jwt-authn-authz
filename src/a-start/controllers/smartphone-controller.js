@@ -17,6 +17,7 @@ class SmartphoneController {
     }
   }
 
+  // TODO: Gunakan UserId dari access_token yang digunakan
   static async postRootSmartphoneHandler(req, res) {
     try {
       const { name, price, qty, UserId } = req.body;

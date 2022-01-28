@@ -37,14 +37,14 @@ class UserController {
       });
 
       if (!user) {
-        return res.status(401).json({
+        res.status(401).json({
           statusCode: 401,
           error: "Invalid username or password",
         });
       }
 
       if (!compareHashWithPassword(user.password, password)) {
-        return res.status(401).json({
+        res.status(401).json({
           statusCode: 401,
           error: "Invalid username or password",
         });

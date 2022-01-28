@@ -191,6 +191,14 @@ TL;DR:
 - `.env.example` dicommit ke dalam repo, berisi nama variabel saja tanpa value
 
 ## Let's Demo
+Disclaimer:
+- Demo pembelajaran ini akan menggunakan template code yang dapat dilihat pada folder `src/a-start`
+
+Dalam demo aplikasi ini kita akan membuat sebuah aplikasi listing smartphone yang dapat menambahkan data smartphone dan melihat data smartphone yang sudah ada, dengan aturan sebagai berikut:
+
+- Hanya orang yang sudah ter-otentikasi yang bisa melihat listing data pada endpoint `GET /smartphones`
+- Hanya orang yang sudah ter-otentikasi yang bisa menambahkan data smartphone pada endpoint `POST /smartphones`
+- Hanya orang yang UserId pada data smartphonenya sama dengan yang login yang bisa melihat detil data smartphone pada endpoint `GET /smartphones/:smartphoneId`
 
 ## Referensi
 * https://jwt.io/

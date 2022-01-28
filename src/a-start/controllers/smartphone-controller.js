@@ -3,7 +3,9 @@ const { Smartphone } = require("../models/index.js");
 class SmartphoneController {
   static async getRootSmartphoneHandler(req, res) {
     try {
-      const smartphones = await Smartphone.findAll();
+      const smartphones = await Smartphone.findAll({
+        attributes: ["id", "name"],
+      });
 
       res.status(200).json({
         statusCode: 200,
@@ -31,6 +33,30 @@ class SmartphoneController {
 
       res.status(201).json({
         statusCode: 201,
+        data: smartphone,
+      });
+    } catch (err) {
+      res.status(500).json({
+        statusCode: 500,
+        error: err.message,
+      });
+    }
+  }
+
+  // TODO: Gunakan validasi kepemilikan pada detil smartphone di bawah ini
+  static async getSmartphoneDetailHandler(req, res) {
+    try {
+      const { smartphoneId } = req.params;
+
+      const smartphone = await Smartphone.findOne({
+        where: { id: smartphoneId },
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      });
+
+      res.status(200).json({
+        statusCode: 200,
         data: smartphone,
       });
     } catch (err) {

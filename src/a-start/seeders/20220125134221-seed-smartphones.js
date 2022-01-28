@@ -18,7 +18,7 @@ module.exports = {
     for (let i = 0; i < 50; i++) {
       smartphone.push({
         name: faker.commerce.productName(),
-        price: faker.commerce.price(),
+        price: faker.datatype.number(),
         qty: faker.datatype.number(),
         UserId: faker.datatype.number({
           min: 1,

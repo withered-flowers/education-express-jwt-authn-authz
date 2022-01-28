@@ -22,16 +22,16 @@ GET {{host}}/smartphones HTTP/1.1
 ###
 
 # Masih tanpa menggunakan authentication
-POST http://localhost:3000/smartphones HTTP/1.1
+POST {{host}}/smartphones HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-name=Siomay Pocong X1&price=3500000&qty=10&UserId=1
+name=Siomay Pocong X1&price=3500000&qty=10&UserId=11
 
 ###
 
 # Sudah dengan menggunakan authentication
-POST http://localhost:3000/smartphones HTTP/1.1
+POST {{host}}/smartphones HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 access_token: {{accessToken}}
 
-name=Siomay Pocong X1&price=3500000&qty=10&UserId=1
+name=Siomay Pocong X2&price=5500000&qty=5

@@ -17,7 +17,7 @@ module.exports = {
 
     for (let i = 0; i < 10; i++) {
       users.push({
-        username: `user${i}`,
+        username: `user${i + 1}`,
         password: createHash("123456"),
         createdAt: new Date(),
         updatedAt: new Date(),

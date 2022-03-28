@@ -1,11 +1,11 @@
 const fs = require("fs/promises");
-const faker = require("faker");
+const { faker } = require("@faker-js/faker");
 (async () => {
   const smartphone = [];
 
   for (let i = 0; i < 50; i++) {
     smartphone.push({
-      name: faker.commerce.productName(),
+      name: faker.commerce.product(),
       price: faker.datatype.number(),
       qty: faker.datatype.number(),
       UserId: faker.datatype.number({

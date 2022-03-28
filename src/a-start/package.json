@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^6.0.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
@@ -19,7 +20,6 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "faker": "^5.5.3",
     "nodemon": "^2.0.15",
     "sequelize-cli": "^6.4.1"
   }

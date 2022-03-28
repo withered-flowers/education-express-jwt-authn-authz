@@ -1,4 +1,5 @@
 "use strict";
+const { createHash } = require("../helpers/bcrypt");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -17,7 +18,7 @@ module.exports = {
     for (let i = 0; i < 10; i++) {
       users.push({
         username: `user${i}`,
-        password: "123456",
+        password: createHash("123456"),
         createdAt: new Date(),
         updatedAt: new Date(),
       });

@@ -1,0 +1,19 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:13.4-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer:4.8.1-standalone
+    environment:
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_PLUGINS: wymeditor table-structure
+    ports:
+      - 8081:8080

@@ -13,40 +13,43 @@ router.use("/users", userRoutes);
 const { User } = require("../models/index.js");
 const { convertTokenToPayload } = require("../helpers/jwt.js");
 router.use(
-  // Function
-  async (req, res, next) => {
-    try {
-      // Terima token dari client, ambil dari header
-      const { token_akses: token } = req.headers;
+	// Function
+	async (req, res, next) => {
+		try {
+			// Terima token dari client, ambil dari header bernama "Authorization"
+			const { authorization } = req.headers;
 
-      // Kalau tidak ada = tidak boleh
-      if (!token) {
-        throw new Error("UNAUTHENTICATED");
-      }
+			// Valuenya adalah "Bearer value_dari_token", ada pemisah berupa spasi
+			const token = authorization.split(" ")[1];
 
-      // Jadikan payload
-      const payload = convertTokenToPayload(token);
+			// Kalau tidak ada = tidak boleh
+			if (!token) {
+				throw new Error("UNAUTHENTICATED");
+			}
 
-      // Validasi terlebih dahulu
-      const foundUser = await User.findByPk(payload.id);
+			// Jadikan payload
+			const payload = convertTokenToPayload(token);
 
-      if (!foundUser) {
-        throw new Error("UNAUTHENTICATED");
-      }
+			// Validasi terlebih dahulu
+			const foundUser = await User.findByPk(payload.id);
 
-      // Berikan data tambahan
-      req.dataTambahan = {
-        id: foundUser.id,
-        username: foundUser.username,
-      };
+			if (!foundUser) {
+				throw new Error("UNAUTHENTICATED");
+			}
 
-      // Jangan lupa "sliding" ke bawah via next()
-      next();
-    } catch (err) {
-      // Akan bersambung ke error handler express (app.js)
-      next(err);
-    }
-  }
+			// Berikan data tambahan
+			req.dataTambahan = {
+				id: foundUser.id,
+				username: foundUser.username,
+			};
+
+			// Jangan lupa "sliding" ke bawah via next()
+			next();
+		} catch (err) {
+			// Akan bersambung ke error handler express (app.js)
+			next(err);
+		}
+	},
 );
 
 router.use("/smartphones", smartphoneRoutes);

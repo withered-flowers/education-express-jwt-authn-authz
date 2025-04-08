@@ -19,13 +19,14 @@ router.use(
 			// Terima token dari client, ambil dari header bernama "Authorization"
 			const { authorization } = req.headers;
 
-			// Valuenya adalah "Bearer value_dari_token", ada pemisah berupa spasi
-			const token = authorization.split(" ")[1];
-
 			// Kalau tidak ada = tidak boleh
-			if (!token) {
+			if (!authorization) {
 				throw new Error("UNAUTHENTICATED");
 			}
+
+			// Asumsi: bahwa token selalu bentuknya <TYPE> <VALUE>
+			// Valuenya adalah "Bearer value_dari_token", ada pemisah berupa spasi
+			const token = authorization.split(" ")[1];
 
 			// Jadikan payload
 			const payload = convertTokenToPayload(token);
@@ -37,7 +38,7 @@ router.use(
 				throw new Error("UNAUTHENTICATED");
 			}
 
-			// Berikan data tambahan
+			// Berikan data tambahan pada object request
 			req.dataTambahan = {
 				id: foundUser.id,
 				username: foundUser.username,

@@ -1,5 +1,5 @@
 @host=http://localhost:3000
-@accessToken=
+@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTc0NDA4NzIwMSwiZXhwIjoxNzQ0MDkwODAxfQ.XDito-CfUV94JJPnBSOiXOgksfeG0nVhETiMW4D94_8
 
 ###
 
@@ -10,6 +10,16 @@ username=testing&password=testing
 
 ###
 
+POST {{host}}/users/register HTTP/1.1
+Content-Type:application/json
+
+{
+  "username": "testing2",
+  "password": "testing2"
+}
+
+###
+
 POST {{host}}/users/login HTTP/1.1
 Content-Type:application/x-www-form-urlencoded
 
@@ -17,21 +27,73 @@ username=testing&password=testing
 
 ###
 
+POST {{host}}/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "testing2",
+  "password": "testing2"
+}
+
+###
+
+# Tanpa menggunakan authentication (Gagal)
 GET {{host}}/smartphones HTTP/1.1
 
 ###
 
-# Masih tanpa menggunakan authentication
+# Dengan menggunakan authentication (Berhasil)
+GET {{host}}/smartphones HTTP/1.1
+Authorization: Bearer {{accessToken}}
+
+###
+
+# Masih tanpa menggunakan authentication (Gagal karena UserId tidak ditemukan)
 POST {{host}}/smartphones HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-name=Siomay Pocong X1&price=3500000&qty=10&UserId=11
+name=Siomay Pocong X1&price=3500000&qty=10&UserId=15
+
+###
+
+# Masih tanpa menggunakan authentication (Awalnya Berhasil)
+# (Setelah Authentication, Ini akan gagal karena error token)
+POST {{host}}/smartphones HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Siomay Pocong X1",
+  "price": 3500000,
+  "qty": 10
+}
 
 ###
 
 # Sudah dengan menggunakan authentication
+# (Perhatikan bahwa kita tidak perlu mengirimkan UserId lagi)
 POST {{host}}/smartphones HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
-access_token: {{accessToken}}
+Authorization: Bearer {{accessToken}}
 
 name=Siomay Pocong X2&price=5500000&qty=5
+
+###
+
+# Sudah dengan menggunakan authentication
+# (Perhatikan bahwa kita tidak perlu mengirimkan UserId lagi)
+POST {{host}}/smartphones HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Siomay Pocong X3",
+  "price": 5350000,
+  "qty": 10
+}
+
+###
+
+# Get data specific smartphone
+# (Coba untuk disable Authorization dan lihat hasilnya)
+GET {{host}}/smartphones/51 HTTP/1.1
+Authorization: Bearer {{accessToken}}
